@@ -42,5 +42,6 @@ use {
     bold = false,
     standout = false,
     undercurl = true,
+    virtual_text = true
 }
 ```

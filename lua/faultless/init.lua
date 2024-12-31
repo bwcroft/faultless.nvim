@@ -4,10 +4,12 @@ local M = {}
 --- @field bold? boolean Whether bold text is enabled or not (default: false)
 --- @field standout? boolean Whether undercurl is enabled (default: false)
 --- @field undercurl? boolean Whether undercurl is enabled (default: true)
+--- @field virtual_text? boolean Whether virtual_text is enabled (default: true)
 M.settings = {
   bold = false,
   standout = false,
   undercurl = true,
+  virtual_text = true,
 }
 
 --- @param settings faultless.settings
@@ -33,12 +35,14 @@ local function configure_highlights(settings)
   end
 end
 
-local function configure_lsp_diagnostics()
+--- @param virtual_text boolean
+local function configure_lsp_diagnostics(virtual_text)
   vim.diagnostic.config({
     float = {
       focus = false,
       border = "rounded",
     },
+    virtual_text = virtual_text,
   })
   -- Add Border & Padding to Lsp Hover
   local hoverConfig = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -56,7 +60,7 @@ end
 function M.setup(settings)
   M.settings = vim.tbl_extend("force", M.settings, settings or {})
   configure_highlights(M.settings)
-  configure_lsp_diagnostics()
+  configure_lsp_diagnostics(M.settings.virtual_text)
 end
 
 return M
