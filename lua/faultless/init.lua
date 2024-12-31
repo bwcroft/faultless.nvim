@@ -12,16 +12,19 @@ M.settings = {
 
 --- @param settings faultless.settings
 local function configure_highlights(settings)
-  local highlights = {
-    DiagnosticUnderlineError = "#FF0000",
-    DiagnosticUnderlineWarning = "#E0C800",
-    DiagnosticUnderlineInfo = "#00FFFF",
-    DiagnosticUnderlineHint = "#00FF00",
+  local group_mapping = {
+    DiagnosticUnderlineOk = "DiagnosticVirtualTextOk",
+    DiagnosticUnderlineInfo = "DiagnosticVirtualTextInfo",
+    DiagnosticUnderlineHint = "DiagnosticVirtualTextHint",
+    DiagnosticUnderlineWarn = "DiagnosticVirtualTextWarn",
+    DiagnosticUnderlineError = "DiagnosticVirtualTextError",
   }
 
-  for group, color in pairs(highlights) do
-    vim.api.nvim_set_hl(0, group, {
-      sp = color,
+  for u_group_name, v_group_name in pairs(group_mapping) do
+    local v_group = vim.api.nvim_get_hl(0, { name = v_group_name })
+    vim.api.nvim_set_hl(0, u_group_name, {
+      bg = "NONE",
+      sp = v_group.fg,
       bold = settings.bold,
       standout = settings.standout,
       underline = not settings.undercurl,
