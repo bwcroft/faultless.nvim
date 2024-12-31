@@ -1,10 +1,10 @@
 local M = {}
 
---- @class faultless.settings
---- @field bold? boolean Whether bold text is enabled or not (default: false)
---- @field standout? boolean Whether undercurl is enabled (default: false)
---- @field undercurl? boolean Whether undercurl is enabled (default: true)
---- @field virtual_text? boolean Whether virtual_text is enabled (default: true)
+---@class faultless.settings
+---@field bold? boolean Whether bold text is enabled or not (default: false)
+---@field standout? boolean Whether undercurl is enabled (default: false)
+---@field undercurl? boolean Whether undercurl is enabled (default: true)
+---@field virtual_text? boolean Whether virtual_text is enabled (default: true)
 M.settings = {
   bold = false,
   standout = false,
@@ -12,7 +12,7 @@ M.settings = {
   virtual_text = true,
 }
 
---- @param settings faultless.settings
+---@param settings faultless.settings
 local function configure_highlights(settings)
   local group_mapping = {
     DiagnosticUnderlineOk = "DiagnosticVirtualTextOk",
@@ -35,7 +35,7 @@ local function configure_highlights(settings)
   end
 end
 
---- @param virtual_text boolean
+---@param virtual_text boolean
 local function configure_lsp_diagnostics(virtual_text)
   vim.diagnostic.config({
     float = {
@@ -56,7 +56,7 @@ function M.toggle_diagnostics()
   vim.diagnostic.open_float(nil, { focus = false })
 end
 
---- @param settings faultless.settings
+---@param settings faultless.settings
 function M.setup(settings)
   M.settings = vim.tbl_extend("force", M.settings, settings or {})
   configure_highlights(M.settings)
