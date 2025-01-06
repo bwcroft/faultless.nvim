@@ -36,7 +36,8 @@ use {
 }
 ```
 
-**Default Configuration**
+## Default Configuration
+
 ```lua
 {
     bold = false,
@@ -45,3 +46,13 @@ use {
     virtual_text = true
 }
 ```
+
+## Tmux Support
+
+If using tmux you will need to add the following to your **tmux.conf**
+
+```
+set -g default-terminal "tmux-256color"
+set-option -ga terminal-overrides ",*:Tc"
+```
+
